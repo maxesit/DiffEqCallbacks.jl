@@ -152,8 +152,9 @@ function integrate_gk!(affect!::SavingIntegrandGKAffect, integrator,
             end
         end
     end
-    if sum(abs.((affect!.gk_step_cache .- affect!.gk_err_cache) .* (bound_r-bound_l) ./ 2))<tol
-        recursive_axpy!(1, affect!.gk_step_cache .* (bound_r-bound_l) ./ 2, affect!.accumulation_cache)
+    if sum(abs.((norm(affect!.gk_step_cache,1) - norm(affect!.gk_err_cache,1)) * (bound_r-bound_l) /2))<tol 
+    #if sum(abs.((affect!.gk_step_cache .- affect!.gk_err_cache) .* (bound_r-bound_l) ./ 2))<tol
+    recursive_axpy!((bound_r-bound_l)/2, affect!.gk_step_cache, affect!.accumulation_cache)
     else
         integrate_gk!(
             affect!, integrator, bound_l, (bound_l+bound_r)/2, order = order, tol = tol/2)

@@ -1,5 +1,6 @@
 module DiffEqCallbacks
 
+using LinearAlgebra: norm
 using ConcreteStructs: @concrete
 using DataStructures: DataStructures, BinaryMaxHeap, BinaryMinHeap
 using DiffEqBase: DiffEqBase, get_tstops, get_tstops_array, get_tstops_max
